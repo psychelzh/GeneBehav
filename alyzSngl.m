@@ -195,7 +195,7 @@ end
 %         fprintf('���������ֽ����ݣ���ʱ�����ṩ���\n\n')
 
 %% antiSaccade
-dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'AntiSac_', subject_code)));
+dataname = dir(fullfile(datapath, sprintf('%ssub%03d_*', 'AntiSac_', subject_code)));
 if  size(dataname, 1) == 0
     antiSaccade = nan(1, 3);
     warning('no file for subjet %d on task %s', subject_code, 'AntiSac_')
