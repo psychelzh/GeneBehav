@@ -9,7 +9,7 @@ function [FNLearn, FNRecog, WM3, stopsignal, shiftnumber, stroop, ...
 
 logfid = fopen('logs.txt', 'a');
 %% FNLearn
-dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'FNLearn_', subject_code)]);
+dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'FNLearn_', subject_code)));
 if  size(dataname, 1)  ==  0
     FNLearn = nan(1, 4);
     warning('no file for subjet %d on task %s', subject_code, 'FNLearn_')  %#ok<*WNTAG> %¹ØÓÚ¸ÃÓï¾äµÄÊÜÏîÄ¿Ó¦ÎªIDµÄÐÞÕý
@@ -21,7 +21,7 @@ else
     end
     bs = [dataname.bytes]; [~, i] = max(bs); %´Ë´¦ÄÜÔÚÓÐ²»Ö¹Ò»¸öÏà¹ØÎÄ¼þÊ±£¬È¡ÄÇ¸ö×î´óµÄÎÄ¼þ×÷Îª½á¹ûÎÄ¼þ¡£
     try 
-        load([datapath, sprintf('\\%s', dataname(i).name)]);
+        load(fullfile(datapath, sprintf('%s', dataname(i).name)));
         FNLearn = FNLearnAnalysisCCH(Seq, subject_code); %ÉÏÒ»Óï¾äÖÐload½øÀ´µÄÊÇ±äÁ¿'Seq'£¬ÏÂÍ¬¡£
         %clearvars -except subject_code logfid datapath datapath FNLearn
     catch exception
@@ -33,7 +33,7 @@ else
 end
 
 %% FNRecogniton
-dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'FNRecog_', subject_code)]);
+dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'FNRecog_', subject_code)));
 if  size(dataname, 1)  ==  0
     FNRecog = nan(1, 8);
     warning('no file for subjet %d on task %s', subject_code, 'FNRecog_') 
@@ -45,7 +45,7 @@ else
     end
     bs = [dataname.bytes]; [~, i] = max(bs); 
     try
-        load ([datapath, sprintf('\\%s', dataname(i).name)]);
+        load(fullfile(datapath, sprintf('%s', dataname(i).name)));
         FNRecog = FNRecogAnalysisCCH(Seq, subject_code);
         %clearvars -except subject_code logfid datapath FNLearn FNRecog
     catch exception
@@ -58,7 +58,7 @@ else
     end
 end
 %% working memory
-dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'WM3_', subject_code)]);
+dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'WM3_', subject_code)));
 if  size(dataname, 1)  ==  0
     WM3 = nan(1, 16);
     warning('no file for subjet %d on task %s', subject_code, 'WM3_')
@@ -70,7 +70,7 @@ else
     end
     bs = [dataname.bytes]; [~, i] = max(bs);
     try
-        load ([datapath, sprintf('\\%s', dataname(i).name)]);
+        load (fullfile(datapath, sprintf('%s', dataname(i).name)));
         WM3 = WM3Analysis(rec, subject_code);
         %clearvars -except subject_code logfid datapath FNLearn FNRecog WM3
     catch exception
@@ -84,7 +84,7 @@ else
 end
 
 %% stopsignal
-dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'StopSignal_', subject_code)]);
+dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'StopSignal_', subject_code)));
 if  size(dataname, 1) == 0
     stopsignal = nan(1, 12);
     warning('no file for subjet %d on task %s', subject_code, 'StopSignal_')
@@ -96,7 +96,7 @@ else
     end
     bs = [dataname.bytes]; [~, i] = max(bs);
     try
-        load([datapath, sprintf('\\%s', dataname(i).name)])
+        load(fullfile(datapath, sprintf('%s', dataname(i).name)))
         stopsignal = stopsignalAnalysis(Seeker, subject_code);
         %clearvars -except subject_code logfid datapath FNLearn FNRecog WM stopsignal
     catch exception
@@ -107,7 +107,7 @@ else
     end
 end
 %% shiftnumber 
-dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'ShiftNumber_', subject_code)]);
+dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'ShiftNumber_', subject_code)));
 if  size(dataname, 1) == 0
     shiftnumber = nan(1, 18);
     warning('no file for subjet %d on task %s', subject_code, 'ShiftNumber_')
@@ -119,7 +119,7 @@ else
     end
     bs = [dataname.bytes]; [~, i] = max(bs);
     try
-        load ([datapath, sprintf('\\%s', dataname(i).name)])
+        load (fullfile(datapath, sprintf('%s', dataname(i).name)))
         shiftnumber = shiftingAnalysis(rec, subject_code);
     %         fprintf('********* ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½***************\n ')
     %         fprintf('repeat ï¿½ï¿½È·ï¿½ï¿½Îª %0.2f, ï¿½ï¿½Ó¦Ê±Îª %0.2f \n', shiftnumber.repeatAccu, shiftnumber.repeatRT);
@@ -134,7 +134,7 @@ else
     end        
 end
 %% stroop
-dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'Stroop_', subject_code)]);
+dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'Stroop_', subject_code)));
 if  size(dataname, 1) == 0
     stroop = nan(1, 21);
     warning('no file for subjet %d on task %s', subject_code, 'Stroop_')
@@ -146,7 +146,7 @@ else
     end
     bs = [dataname.bytes]; [~, i] = max(bs);
     try
-        load ([datapath, sprintf('\\%s', dataname(i).name)]);
+        load (fullfile(datapath, sprintf('%s', dataname(i).name)));
         stroop = stroopAnalysis(result, subject_code);
     %         fprintf('********* stroop ***************\n')
     %         fprintf('Ò»ï¿½Â·ï¿½Ó¦Ê±%0.2f\nï¿½ï¿½Ò»ï¿½Â·ï¿½Ó¦Ê±%0.2f\nÒ»ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½%0.2f\nï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½%0.2f\n', stroop(2), stroop(3), stroop(5), stroop(6));
@@ -162,7 +162,7 @@ end
 
 
 %% category switch
-dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'CateSwitch_', subject_code)]);
+dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'CateSwitch_', subject_code)));
 if  size(dataname, 1) == 0
     CateSwitchACC = nan(1, 7); CateSwitchRT = nan(1, 7);
     warning('no file for subjet %d on task %s', subject_code, 'CateSwitch_')
@@ -174,7 +174,7 @@ else
     end
     bs = [dataname.bytes]; [~, i] = max(bs);
     try
-        load ([datapath, sprintf('\\%s', dataname(i).name)]);
+        load (fullfile(datapath, sprintf('%s', dataname(i).name)));
         [CateSwitchRT, CateSwitchACC] = CateSwitchAnalysisCCH(SM, subject_code);
     catch exception
         disp([sprintf('=======================================\n') exception.message sprintf('\nPlease check the data!')])
@@ -195,7 +195,7 @@ end
 %         fprintf('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½á¹©ï¿½ï¿½ï¿½\n\n')
 
 %% antiSaccade
-dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'AntiSac_', subject_code)]);
+dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'AntiSac_', subject_code)));
 if  size(dataname, 1) == 0
     antiSaccade = nan(1, 3);
     warning('no file for subjet %d on task %s', subject_code, 'AntiSac_')
@@ -207,7 +207,7 @@ else
     end
     bs = [dataname.bytes]; [~, i] = max(bs);
     try
-        load ([datapath, sprintf('\\%s', dataname(i).name)]);
+        load (fullfile(datapath, sprintf('%s', dataname(i).name)));
         antiSaccade = AntiSacAnalysisCCH(Seq, subject_code);
     catch exception
         disp([sprintf('=======================================\n') exception.message sprintf('\nPlease check the data!')])
@@ -223,7 +223,7 @@ end
 
 
 %% reinforcement
-dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'Reinf_', subject_code)]);
+dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'Reinf_', subject_code)));
 if  size(dataname, 1) == 0
     Reinfresult.ChooseAAccu = nan; Reinfresult.ChooseART = nan;Reinfresult.AvoidBAccu = nan; Reinfresult.AvoidBRT = nan;
     Reinfresult.winstay = nan(1, 4);Reinfresult.loseshift = nan(1, 4);Reinfresult.ABaccu = nan;Reinfresult.CDaccu = nan;Reinfresult.EFaccu = nan;
@@ -236,12 +236,8 @@ else
     end
     bs = [dataname.bytes]; [~, i] = max(bs);
     try
-        load ([datapath, sprintf('\\%s', dataname(i).name)]);
+        load (fullfile(datapath, sprintf('%s', dataname(i).name)));
         Reinfresult = reinforcementAnalysis(Reinforcematerial, subject_code);
-    %         fprintf('********* reinforcement ***************\n')
-    %         fprintf('ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È·ï¿½ï¿½Îª %0.2f, ï¿½ï¿½Ó¦Ê±Îª %0.2f \n', Reinfresult.ChooseAAccu, Reinfresult.ChooseART);
-    %         fprintf('ï¿½Üºï¿½  ï¿½ï¿½È·ï¿½ï¿½Îª %0.2f, ï¿½ï¿½Ó¦Ê±Îª %0.2f \n\n', Reinfresult.AvoidBAccu, Reinfresult.AvoidBRT);
-        %clearvars -except subject_code logfid datapath FNLearn FNRecog WM stopsignal shiftnumber stroop CateSwitchACC CateSwitchRT antiSaccade Reinfresult
     catch exception
         disp([sprintf('=======================================\n') exception.message sprintf('\nPlease check the data!')])
         fprintf(logfid, '***************************************\nError data: %s\n***************************************\n', dataname(i).name);
@@ -251,7 +247,7 @@ else
     end
 end
 %% Ultimate game
-dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'Ultimate_', subject_code)]);
+dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'Ultimate_', subject_code)));
 if  size(dataname, 1) == 0
     UG.acceptmin = nan; UG.offer = nan;UG.computermin = nan;
     warning('more than one file for subjet %d on task %s', subject_code, 'Ultimate')
@@ -263,7 +259,7 @@ else
     end
     bs = [dataname.bytes]; [~, i] = max(bs);
     try
-        load ([datapath, sprintf('\\%s', dataname(i).name)]);
+        load (fullfile(datapath, sprintf('%s', dataname(i).name)));
         UG.acceptmin = acceptmin; UG.offer = offer(1); UG.computermin = computermin;
     %         fprintf('********* reinforcement ***************\n')
     %         fprintf('ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È·ï¿½ï¿½Îª %0.2f, ï¿½ï¿½Ó¦Ê±Îª %0.2f \n', Reinfresult.ChooseAAccu, Reinfresult.ChooseART);
@@ -279,7 +275,7 @@ else
     end
 end
 %% BART
-dataname = dir([datapath, sprintf('\\%sSub%03d_*.log', 'Bart_', subject_code)]);
+dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*.log', 'Bart_', subject_code)));
 if  size(dataname, 1) == 0
     BART = nan;
     warning('more than one file for subjet %d on task %s', subject_code, 'Bart')
@@ -290,7 +286,7 @@ else
         fprintf(logfid, 'more than one file for subjet %d on task %s\n', subject_code, dataname(1).name);
     end
     bs = [dataname.bytes]; [~, i] = max(bs);
-    BART = BartAnalysis([datapath, '\', dataname(i).name]);
+    BART = BartAnalysis(fullfile(datapath, dataname(i).name));
 %         fprintf('********* reinforcement ***************\n')
 %         fprintf('ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È·ï¿½ï¿½Îª %0.2f, ï¿½ï¿½Ó¦Ê±Îª %0.2f \n', Reinfresult.ChooseAAccu, Reinfresult.ChooseART);
 %         fprintf('ï¿½Üºï¿½  ï¿½ï¿½È·ï¿½ï¿½Îª %0.2f, ï¿½ï¿½Ó¦Ê±Îª %0.2f \n\n', Reinfresult.AvoidBAccu, Reinfresult.AvoidBRT);
@@ -298,7 +294,7 @@ else
 end
 
 %% KLearn
-    dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'KLearn_', subject_code)]);
+    dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'KLearn_', subject_code)));
     if  isempty(dataname)
         KLearn = nan(1, 5);
         warning('no file for subjet %d on task %s', subject_code, 'KLearn_') %#ok<*WNTAG>
@@ -306,7 +302,7 @@ end
     else
         bs = [dataname.bytes]; [~, i] = max(bs);
         try
-            load ([datapath, sprintf('\\%s', dataname(i).name)]);
+            load (fullfile(datapath, sprintf('%s', dataname(i).name)));
             KLearn = KLearnAnalysisCCH(Seq, subject_code);
         catch exception
             disp([sprintf('=======================================\n') exception.message sprintf('\nPlease check the data!')])
@@ -320,7 +316,7 @@ end
         %clearvars -except subject_code logfid datapath KLearn
     end
 %% KRecog
-    dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'KRecog_', subject_code)]);
+    dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'KRecog_', subject_code)));
     if  isempty(dataname)
         KRecog = nan(1, 6);
         warning('no file for subjet %d on task %s', subject_code, 'KRecog_')
@@ -332,7 +328,7 @@ end
         end
         bs = [dataname.bytes]; [~, i] = max(bs);
         try
-            load ([datapath, sprintf('\\%s', dataname(i).name)]);
+            load (fullfile(datapath, sprintf('%s', dataname(i).name)));
             KRecog = KRecogAnalysisCCH(Seq, subject_code);
         catch exception
             disp([sprintf('=======================================\n') exception.message sprintf('\nPlease check the data!')])
@@ -347,7 +343,7 @@ end
     
 
 %% ShiftingColor
-    dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'ShiftingColor_', subject_code)]);
+    dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'ShiftingColor_', subject_code)));
     if  isempty(dataname)
         shiftcolor = nan(1, 18);
         warning('no file for subjet %d on task %s', subject_code, 'shiftcolor')
@@ -359,7 +355,7 @@ end
         end
         bs = [dataname.bytes]; [~, i] = max(bs);
         try
-            load ([datapath, sprintf('\\%s', dataname(i).name)])
+            load (fullfile(datapath, sprintf('%s', dataname(i).name)))
             shiftcolor = shiftingAnalysis(rec, subject_code);
     %         fprintf('********* ·ûºÅÇÐ»»***************\n ')
     %         fprintf('repeat ÕýÈ·ÂÊÎª %0.2f, ·´Ó¦Ê±Îª %0.2f \n', shiftcolor.repeatAccu,  shiftcolor.repeatRT);
@@ -374,7 +370,7 @@ end
     end
 
 %% Filtering
-    dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'Filtering_', subject_code)]);
+    dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'Filtering_', subject_code)));
     if  isempty(dataname)
         filter = nan(1, 17);
         warning('no file for subjet %d on task %s', subject_code, 'Filtering')
@@ -386,7 +382,7 @@ end
         end
         bs = [dataname.bytes]; [~, i] = max(bs);
         try
-            load ([datapath, sprintf('\\%s', dataname(i).name)]);
+            load (fullfile(datapath, sprintf('%s', dataname(i).name)));
             filter = FilteringAnalysis(rec, subject_code);
         catch exception
             disp([sprintf('=======================================\n') exception.message sprintf('\nPlease check the data!')])
@@ -400,7 +396,7 @@ end
         %clearvars -except subject_code logfid datapath KLearn KRecog shiftcolor filter
     end
 %% working memory
-    dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'spatial_2back_', subject_code)]);
+    dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'spatial_2back_', subject_code)));
     if  isempty(dataname)
         WM2 = nan(1, 4);
         warning('no file for subjet %d on task %s', subject_code, 'spatial_2back')
@@ -412,7 +408,7 @@ end
         end
         bs = [dataname.bytes]; [~, i] = max(bs);
         try
-            load ([datapath, sprintf('\\%s', dataname(i).name)]);
+            load (fullfile(datapath, sprintf('%s', dataname(i).name)));
             WM2 = WM2Analysis(rec, subject_code);
         catch exception
             disp([sprintf('=======================================\n') exception.message sprintf('\nPlease check the data!')])
@@ -442,7 +438,7 @@ end
     SPST = SPSTanalysisCCH(subject_code, datapath);
     %clearvars -except subject_code logfid datapath KLearn KRecog shiftcolor filter WM  SPST
 %% Delay discount
-    dataname = dir([datapath, sprintf('\\%sSub%03d_*', 'DelayDiscount_', subject_code)]);
+    dataname = dir(fullfile(datapath, sprintf('%sSub%03d_*', 'DelayDiscount_', subject_code)));
     if  isempty(dataname)
         Delay = nan(1, 6);
         warning('no file for subjet %d on task %s', subject_code, 'DelayDiscount_')
@@ -454,7 +450,7 @@ end
         end
         bs = [dataname.bytes]; [~, i] = max(bs);
         try
-            load ([datapath, sprintf('\\%s', dataname(i).name)]);
+            load (fullfile(datapath, sprintf('%s', dataname(i).name)));
             Delay = DelayDiscountAnalysis(kvalArray, rewardArray, timeArray, choiceArray, subject_code);
        %clearvars -except subject_code logfid datapath KLearn KRecog shiftcolor filter WM SPST Delay
         catch exception
