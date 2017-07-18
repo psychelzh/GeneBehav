@@ -1,0 +1,9 @@
+# matlab data file
+*.mat
+
+# other text files
+*.txt
+*.log
+
+# folders
+OutData/
